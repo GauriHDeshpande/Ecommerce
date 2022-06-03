@@ -13,21 +13,22 @@ const sequalize = require("sequelize");
  * Creating the db connection.
  */
 
-const seq = new Sequalize(
+const seq = new sequalize(
     config.DB,
     config.USER,
     config.PASSWORD,
     {
         host : config.HOST,
-        dialect : config.config.dialect
+        dialect : config.dialect
     }
 
 );
 
 const db = {};
-db.Sequelize = Sequelize;
+db.Sequelize = sequalize;
 db.sequalize = seq;
-db.category = require('./category.model.js')(db.sequalize, Sequalize);
+db.category = require('./category.models.js')(db.sequalize, sequalize);
+db.category = require('./product.models.js')(db.sequalize, sequalize);
 
 /**
  * db = {

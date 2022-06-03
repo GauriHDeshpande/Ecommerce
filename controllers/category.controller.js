@@ -111,3 +111,26 @@ exports.update = (req, res) => {
                 })
         })
 }
+
+/**
+ * delete the existing list based on category id
+ */
+
+exports.delete = (req, res)=>{
+    const categoryId = req.params.id;
+    Category.destroy({
+        where : {
+            id : categoryId
+        }
+    })
+    .then(result => {
+        res.status(200).send({
+            message : "Successfully deleted the category"
+        })
+    })
+    .catch(err => {
+        res.status(500).send({
+            message : "Some internal error while deleting the category based on id"
+        })
+    })
+}

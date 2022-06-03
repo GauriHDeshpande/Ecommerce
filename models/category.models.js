@@ -7,7 +7,7 @@
  */
 
 module.exports = (sequalize, Sequalize) => {
-const Category = Sequalize.define("category", {
+const Category = sequalize.define("category", {
     id : {
         type : Sequalize.INTEGER,
         primaryKey : true,
@@ -20,6 +20,8 @@ const Category = Sequalize.define("category", {
     description : {
         type : Sequalize.STRING
     }
+},{
+    tableName : 'categories'
 });
 return Category;
 }

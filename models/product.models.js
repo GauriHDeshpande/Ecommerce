@@ -15,7 +15,8 @@ module.exports = (sequalize, Sequalize) =>{
         id:{
             type:Sequalize.INTEGER,
             allowNull : false,
-            autoIncrement : true
+            autoIncrement : true,
+            primaryKey : true
         },
         name : {
             type : Sequalize.STRING,

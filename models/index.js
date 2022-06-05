@@ -28,7 +28,7 @@ const db = {};
 db.Sequelize = sequalize;
 db.sequalize = seq;
 db.category = require('./category.models.js')(db.sequalize, sequalize);
-db.category = require('./product.models.js')(db.sequalize, sequalize);
+db.product = require('./product.models.js')(db.sequalize, sequalize);
 
 /**
  * db = {

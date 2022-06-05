@@ -7,21 +7,21 @@
  */
 
 module.exports = (sequalize, Sequalize) => {
-const Category = sequalize.define("category", {
-    id : {
-        type : Sequalize.INTEGER,
-        primaryKey : true,
-        autoIncrement : true
-    },
-    name : {
-        type : Sequalize.STRING,
-        allowNull : false,
-    },
-    description : {
-        type : Sequalize.STRING
-    }
-},{
-    tableName : 'categories'
-});
-return Category;
+    const Category = sequalize.define("category", {
+        id: {
+            type: Sequalize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        name: {
+            type: Sequalize.STRING,
+            allowNull: false,
+        },
+        description: {
+            type: Sequalize.STRING
+        }
+    }, {
+        tableName: 'categories'
+    });
+    return Category;
 }

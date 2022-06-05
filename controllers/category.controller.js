@@ -3,7 +3,6 @@
  * Everytime a CRUD request come for the category, methods define in this controller file will be executed.
  */
 
-const { category } = require("../models");
 const db = require("../models");
 const Category = db.category;
 

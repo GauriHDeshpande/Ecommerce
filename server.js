@@ -13,7 +13,7 @@ const app = expresss();
  * Used for parsing the request
  * parsing the request ofthe type json and convert that to object
  */
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 /**
  * Initializing the database
@@ -21,33 +21,35 @@ app.use(bodyParser.json());
 const db = require("./models");
 const Category = db.category;
 
-db.sequalize.sync({force:true})
-.then(() => {
-    console.log('Tables dropped and created')
-    init();
-})
+db.sequalize.sync({ force: true })
+    .then(() => {
+        console.log('Tables dropped and created')
+        init();
+    })
 
-function init()
-{
+function init() {
     var categories = [
         {
-        name: "Electronics",
-        description: "This category will contain all the electronic products"
+            id: 1,
+            name: "Electronics",
+            description: "This category will contain all the electronic products"
         },
         {
+            id: 2,
             name: "KitchenItem",
             description: "This category will contain all the kitchen products"
         }
     ];
     Category.bulkCreate(categories)
-    .then(() => {
-        console.log('Category table initialised')
-    })
-    .catch(err => {
-        console.log("Error while initialising categories table");
-    })
+        .then(() => {
+            console.log('Category table initialised')
+        })
+        .catch(err => {
+            console.log("Error while initialising categories table");
+        })
 }
-require('./routes/category.routes')(app)
+require('./routes/category.routes')(app);
+require('./routes/product.routes')(app);
 
 app.listen(serverConfig.PORT, () => {
     console.log(`Application started on the port no : ${serverConfig.PORT}`)

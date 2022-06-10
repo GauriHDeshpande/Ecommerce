@@ -7,18 +7,10 @@ const db = require("../models");
 const Category = db.category;
 
 /**
- * Create and save a new category 
+ * POST : Create and save a new category 
  */
 exports.create = (req, res) => {
-    /**
-     * Validation of request body
-     */
-    if (!req.body.name) {
-        res.status(400).send({
-            message: "Name of the category can't be empty...!"
-        })
-        return;
-    }
+
     /**
      * Creation of the category object to be sorted in the db.
      */
@@ -27,10 +19,11 @@ exports.create = (req, res) => {
         name: req.body.name,
         description: req.body.description
     };
-    Category.create(category).then(category => {
-        console.log(`category name : [${category.name}] got interested`);
-        res.status(201).send(category);
-    })
+    Category.create(category)
+        .then(category => {
+            console.log(`category name : [${category.name}] got interested`);
+            res.status(201).send(category);
+        })
         .catch(err => {
             console.log(`Issue in inserting category name: [${category}]`);
             console.log(`Error Message : ${err.message}`)
@@ -74,11 +67,16 @@ exports.findOne = (req, res) => {
     const categoryId = req.params.id;
     Category.findByPk(categoryId)
         .then(category => {
+            if (!category) {
+                return res.status(404).json({
+                    message: "Category not found"
+                })
+            }
             res.status(200).send(category);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Some internal error"
+                message: "Some internal error while fetching the category based on id."
             })
         })
 }
@@ -109,27 +107,33 @@ exports.update = (req, res) => {
                     })
                 })
         })
+        .catch(err => {
+            // Where the updation task fails.
+            res.status(500).send({
+                message: "Some internal error while fetching the category by id"
+            })
+        })
 }
 
 /**
- * delete the existing list based on category id
+ * delete the existing category based on category id
  */
 
-exports.delete = (req, res)=>{
+exports.delete = (req, res) => {
     const categoryId = req.params.id;
     Category.destroy({
-        where : {
-            id : categoryId
+        where: {
+            id: categoryId
         }
     })
-    .then(result => {
-        res.status(200).send({
-            message : "Successfully deleted the category"
+        .then(result => {
+            res.status(200).send({
+                message: "Successfully deleted the category"
+            })
         })
-    })
-    .catch(err => {
-        res.status(500).send({
-            message : "Some internal error while deleting the category based on id"
+        .catch(err => {
+            res.status(500).send({
+                message: "Some internal error while deleting the category based on id"
+            })
         })
-    })
 }

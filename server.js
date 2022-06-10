@@ -19,8 +19,11 @@ app.use(bodyParser.json());
  * Initializing the database
  */
 const db = require("./models");
+const { category } = require('./models');
 const Category = db.category;
+const product = db.product;
 
+Category.hasMany(product); // This will create a foreign key column (categoryId) in the product table.
 db.sequalize.sync({ force: true })
     .then(() => {
         console.log('Tables dropped and created')

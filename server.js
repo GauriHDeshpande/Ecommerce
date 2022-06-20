@@ -22,6 +22,7 @@ const db = require("./models");
 const { category } = require('./models');
 const Category = db.category;
 const product = db.product;
+const Role = db.role;
 
 Category.hasMany(product); // This will create a foreign key column (categoryId) in the product table.
 db.sequalize.sync({ force: true })
@@ -50,9 +51,22 @@ function init() {
         .catch(err => {
             console.log("Error while initialising categories table");
         })
+        /**
+         * Adding Roles
+         */
+        Role.create({
+            id: 1,
+            name: "user"
+        });
+        Role.create({
+            id:2,
+            name: "admin"
+        })
 }
 require('./routes/category.routes')(app);
 require('./routes/product.routes')(app);
+require('./routes/auth.routes')(app);
+require('./routes/cart.routes')(app)
 
 app.listen(serverConfig.PORT, () => {
     console.log(`Application started on the port no : ${serverConfig.PORT}`)

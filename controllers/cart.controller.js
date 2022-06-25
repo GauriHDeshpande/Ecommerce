@@ -3,12 +3,13 @@ const db = require("../models");
 const Product = db.product;
 const Cart = db.cart;
 const Op = db.sequalize.Op;
-
+const {STATUS} = require('../configs/cart.status.config');
 
 exports.create = (req, res) => {
 
     const cart = {
-        userId: req.userId  // We are getting this id from middeleware
+        userId: req.userId,  // We are getting this id from middeleware
+        status: STATUS.CREATION
     };
     Cart.create(cart)
         .then(cart => {
@@ -89,7 +90,8 @@ exports.getCart = (req, res) => {
                     res.status(200).send({
                         id: cart.id,
                         productSelected: ProductSelected,
-                        cost: cost
+                        cost: cost,
+                        status: cart.status
                     })
                 })
         })
@@ -117,3 +119,34 @@ exports.getCart = (req, res) => {
             })
         })
 }
+
+exports.changeCartStatus = (req, res) => {
+    const cart = {
+        id: req.params.id,
+        status: req.params.status,
+        userId: req.userId
+    };
+    const cartId = req.params.cartId
+
+    Cart.update(cart, {
+        where: {
+            id: cartId
+        }
+    })
+    .then(updateCart => {
+        Cart.findByPk(cartId)
+        .then(cart => {
+            res.status(200).send(cart);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Some Internal Server Error while fetching the cart status based on cart id"
+            })
+        })
+    })
+}
+
+/**
+ * 1. Feature to add quantity of products also in the cart.
+ * 2. Implement API to update the quantity in the cart.
+ */

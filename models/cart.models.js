@@ -5,6 +5,10 @@ module.exports = (sequalize, Sequalize) => {
             type: Sequalize.INTEGER,
             primaryKey: true,
             autoIncrement: true
+        },
+        status:{
+            type:Sequalize.STRING,
+            allowNull: false
         }
     });
     return Cart;

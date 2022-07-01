@@ -6,7 +6,8 @@
  * one of the advantages of using index.js file is, oher file trying to import this file, just need to provide the model name.
  */
 
-const config = require("../configs/db.config");
+const env = process.env.NODE_ENV || 'development'; // env => Production, Development
+const config = require("../configs/db.config")[env];
 const sequalize = require("sequelize");
 
 /**

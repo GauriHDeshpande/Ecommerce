@@ -1,10 +1,15 @@
 import './App.css';
-
+import LandingPage from './pages/LandingPage/landingPage';
 function App() {
+  const renderComponents = () => {
+    return(
+      <>
+      <LandingPage/>
+      </>
+    )
+  }
   return (
-    <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-      <h2>Welcome to React Ecommerse App!!</h2>
-    </div>
+     renderComponents()
   );
 }
 

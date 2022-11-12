@@ -1,10 +1,10 @@
 import './App.css';
-import LandingPage from './pages/LandingPage/landingPage';
+import Auth from './pages/Auth/Auth';
 function App() {
   const renderComponents = () => {
     return(
       <>
-      <LandingPage/>
+      <Auth/>
       </>
     )
   }

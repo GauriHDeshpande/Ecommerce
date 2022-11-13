@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './auth.css';
 import Navbar from "../../components/Navbar/Navbar";
-import { AxiosInstance } from '../../utils/AxiosInstance';
+import { signIn, signUp } from '../../api/auth';
 
 const Auth = () => {
   const [showSignup, setSignup] = useState(false); // Whenever user add these values it gets reflected in the state variable as we are using useState here.
@@ -26,7 +26,7 @@ const Auth = () => {
       return;
     }    
     try {
-      const response = await AxiosInstance.post('/auth/signin', user);
+      const response = await signIn(user);
       console.log(response);
       alert("user signin successfully...!")
     } catch (error) {
@@ -52,18 +52,18 @@ const Auth = () => {
       return;
     }    
     try {
-      const response = await AxiosInstance.post('/auth/signup', user);
-      console.log(response);
+      const {data} = await signUp(user);
+      console.log(data);
 
       clearState();
 
       setSignupSuccess(true);
-      setAuthResponse(response.data.message);
+      setAuthResponse(data.message);
 
     } catch (error) {
       console.log(error);
       setSignupSuccess(false);
-      setAuthResponse(error.response.data.message)
+      setAuthResponse(error.data.message)
     }
   }
   const renderComponents = () => {

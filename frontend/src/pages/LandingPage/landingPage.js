@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './landingPage.css';
 import Navbar from "../../components/Navbar/Navbar";
-import { AxiosInstance } from '../../utils/AxiosInstance'
+import { getAllCategory } from '../../api/category';
 
 const LandingPage = () => {
   const [categories, setCategories] = useState([]);
 
     const fetchCategories = async () => {
       try {
-        const result = await AxiosInstance.get('/categories');
+        const result = await getAllCategory();
         console.log(result);
         setCategories(result.data);
       } catch (error) {

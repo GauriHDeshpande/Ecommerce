@@ -1,10 +1,11 @@
 import './App.css';
-import Auth from './pages/Auth/Auth';
+import AppRoutes from './components/Routes/AppRoutes';
+
 function App() {
   const renderComponents = () => {
     return(
       <>
-      <Auth/>
+      <AppRoutes/>
       </>
     )
   }
